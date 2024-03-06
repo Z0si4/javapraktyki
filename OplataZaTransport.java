@@ -1,8 +1,6 @@
-package zadania2;
-
 import java.util.Scanner;
 
-public class Dziewiec {
+public class OplataZaTransport {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
