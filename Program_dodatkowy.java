@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Program_dodatkowy {
     public static void main(String[] args) {
@@ -38,19 +39,31 @@ public class Program_dodatkowy {
                 char znak = rzymska.charAt(i);
                 switch (znak) {
                     case 'I':
-                        liczba += (rzymska.charAt(i + 1) == 'V' || rzymska.charAt(i + 1) == 'X') ? -1 : 1;
+                        if (i + 1 < rzymska.length() && (rzymska.charAt(i + 1) == 'V' || rzymska.charAt(i + 1) == 'X')) {
+                            liczba -= 1;
+                        } else {
+                            liczba += 1;
+                        }
                         break;
                     case 'V':
                         liczba += 5;
                         break;
                     case 'X':
-                        liczba += (rzymska.charAt(i + 1) == 'L' || rzymska.charAt(i + 1) == 'C') ? -10 : 10;
+                        if (i + 1 < rzymska.length() && (rzymska.charAt(i + 1) == 'L' || rzymska.charAt(i + 1) == 'C')) {
+                            liczba -= 10;
+                        } else {
+                            liczba += 10;
+                        }
                         break;
                     case 'L':
                         liczba += 50;
                         break;
                     case 'C':
-                        liczba += (rzymska.charAt(i + 1) == 'D' || rzymska.charAt(i + 1) == 'M') ? -100 : 100;
+                        if (i + 1 < rzymska.length() && (rzymska.charAt(i + 1) == 'D' || rzymska.charAt(i + 1) == 'M')) {
+                            liczba -= 100;
+                        } else {
+                            liczba += 100;
+                        }
                         break;
                     case 'D':
                         liczba += 500;
@@ -58,12 +71,18 @@ public class Program_dodatkowy {
                     case 'M':
                         liczba += 1000;
                         break;
+                    default:
+                        System.out.println("Niepoprawny znak rzymski: " + znak);
+                        return;
                 }
             }
-
+            Pattern reg=Pattern.compile("^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$",Pattern.CASE_INSENSITIVE);
+            if(reg.matcher(rzymska).matches()){
             System.out.println("Liczba arabska: " + liczba);
-        } else {
-            System.out.println("Niepoprawny tryb.");
+            }
+            else{
+                System.out.println("Niepoprawna liczba rzymska");
+            }
         }
     }
 }
